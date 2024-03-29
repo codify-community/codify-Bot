@@ -9,7 +9,7 @@ from env import env
 
 ca = certifi.where()
 client = MongoClient(env.mongo_uri, tlsCAFile=ca)
-db = client["Nex"]
+db = client["Codify"]
 
 
 class UserDatabase:
