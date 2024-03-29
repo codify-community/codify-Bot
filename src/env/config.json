@@ -1,30 +1,11 @@
 {
-    "prod": {
-        "guild": {
-            "id": 1028732529664077976,
-            "name": "Nex Revolution RP",
-            "icon": "https://images-ext-2.discordapp.net/external/Tya44QeqyNG7PN-2BD0899tNlf7siZlm3fjRSpE8Cxw/%3Fformat%3Dwebp%26quality%3Dlossless/https/images-ext-1.discordapp.net/external/fwjpMVZYMvXakfOoZt1wA-aYMMUKXnVHnGWKifD0AVs/%253Fformat%253Dwebp%2526quality%253Dlossless%2526width%253D559%2526height%253D559/https/images-ext-2.discordapp.net/external/fQ5fQRpUlXsWV02K7aLZ5zWlXyzerEoYfsZw8ZC4qoU/%25253Fsize%25253D2048/https/cdn.discordapp.com/icons/1028732529664077976/58d8fafe71a209d68e0aa40d9d5dc3d7.png?format=webp&quality=lossless&width=671&height=671",
-            "roles": {
-                "staff": [1028732530238685311, 1103327429977714791],
-                "muted": 1219290603322347594
-            },
-            "channels": {
-                "ticket": 1028732532562329731
-            }
-        }
-    },
-    "dev": {
-        "guild": {
-            "id": 876177929720180786,
-            "name": "Nex Revolution RP",
-            "icon": "https://images-ext-2.discordapp.net/external/Tya44QeqyNG7PN-2BD0899tNlf7siZlm3fjRSpE8Cxw/%3Fformat%3Dwebp%26quality%3Dlossless/https/images-ext-1.discordapp.net/external/fwjpMVZYMvXakfOoZt1wA-aYMMUKXnVHnGWKifD0AVs/%253Fformat%253Dwebp%2526quality%253Dlossless%2526width%253D559%2526height%253D559/https/images-ext-2.discordapp.net/external/fQ5fQRpUlXsWV02K7aLZ5zWlXyzerEoYfsZw8ZC4qoU/%25253Fsize%25253D2048/https/cdn.discordapp.com/icons/1028732529664077976/58d8fafe71a209d68e0aa40d9d5dc3d7.png?format=webp&quality=lossless&width=671&height=671",
-            "roles": {
-                "staff": [901614774670983178],
-                "muted": 1219290603322347594
-            },
-            "channels": {
-                "ticket": 894651555700158474
-            }
+    "guild": {
+        "id": 743482187365613641,
+        "name": "Codify Community",
+        "icon": "https://images-ext-1.discordapp.net/external/zaaREN9kU_pL0r5kcxGeaLxnkRXhO9TiHmb9zxCkEcw/%3Fsize%3D2048/https/cdn.discordapp.com/icons/743482187365613641/e39f355419cfb03f10e66a7ccae69931.png?format=webp&quality=lossless",
+        "roles": {
+            "staff": [1090827540865753129, 1090827521454510120, 1090827518132633630, 743487234937978892],
+            "muted": 1219290603322347594
         }
     }
 }

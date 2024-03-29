@@ -11,7 +11,7 @@ def create_giveaway_winners_embed(message, name, winners):
             if winners
             else f"[{name}]({message.jump_url}) não teve nenhum ganhador! É sua chance de ganhar na próxima!"
         ),
-        color=0xFF3030,
+        color=0x9F6CFD,
     )
     embed.set_thumbnail(url=config["guild"]["icon"])
     embed.set_footer(text=f"ID do sorteio: {message.id}")
@@ -25,7 +25,7 @@ def create_giveaway_embed(
     embed = Embed(
         title=name,
         description=f"{description}\nSorteio encerrado <t:{endtime}:R>.",
-        color=0xFF3030,
+        color=0x9F6CFD,
     )
 
     embed.set_thumbnail(url=config["guild"]["icon"])
@@ -44,11 +44,11 @@ def create_giveaway_embed(
 
 def create_ticket_embed():
     embed = Embed(
-        color=0xFF3030,
-        title="Atendimento - NRRP",
-        description="Olá, bem vindo a Central de Atendimento do Nex Revolution - RP. Eu sou responsável por facilitar a sua comunicação com a administração de um jeito prático e rápido.",
+        color=0x9F6CFD,
+        title="Central de Atendimento",
+        description="Olá, bem vindo a Central de Atendimento da Codify Community! Para abrir um ticket, clique no botão abaixo.",
     )
-    embed.set_footer(text="Adiministração Nex Revolution")
+    embed.set_footer(text="Seu ticket será respondido o mais rápido possível.")
     embed.set_image(url=config["guild"]["icon"])
 
     return embed
@@ -58,7 +58,7 @@ def create_warns_embed(member, warns, page: int):
     embed = Embed(
         title=f"Warns de {member.name.capitalize()}",
         description="",
-        color=0xFF3030,
+        color=0x9F6CFD,
     )
     embed.set_thumbnail(url=member.avatar.url)
     for warn in warns["results"]:
@@ -78,7 +78,7 @@ def create_lock_embed(locked: bool = False):
         embed = Embed(
             title="Canal trancado",
             description="Este canal foi trancado!",
-            color=0xFF3030,
+            color=0x9F6CFD,
         )
         embed.set_thumbnail(
             url="https://www.dropbox.com/scl/fi/lzziw2iouwz8m3gu6mq5f/fechadura.png?rlkey=jwe7616xfuez158tkjk213tbc&raw=1"

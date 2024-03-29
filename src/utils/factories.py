@@ -92,7 +92,7 @@ class PersistentTicketView(PersistentViewBase):
         embed = Embed(
             title=f"Atendimento | {item.values[0]} - NRRP",
             description=f"Olá, {select.user.name.capitalize()}!\nEnvie sua dúvida ou denuncia que nossa equipe já irá te atender.",
-            color=0xFF3030,
+            color=0x9F6CFD,
         )
         embed.set_thumbnail(url=config["guild"]["icon"])
         embed.set_footer(text="Se não quiser mais ser atendido tranque o ticket!")
@@ -104,7 +104,7 @@ class PersistentTicketView(PersistentViewBase):
             embed=Embed(
                 title=f"Ticket de {item.values[0]} aberto!",
                 description=f"{select.user.mention}, seu ticket foi aberto com sucesso!",
-                color=0xFF3030,
+                color=0x9F6CFD,
             ),
             ephemeral=True,
         )
@@ -144,7 +144,7 @@ class PersistentTicketButtons(PersistentViewBase):
             embed = Embed(
                 title="Ticket trancado!",
                 description=f"{interaction.user.mention}, o ticket foi trancado, caso queira abrir novamente clique no botão destrancar.",
-                color=0xFF3030,
+                color=0x9F6CFD,
             )
             await interaction.message.edit(
                 view=PersistentTicketButtons().disable_buttons()
@@ -172,7 +172,7 @@ class PersistentTicketButtons(PersistentViewBase):
             embed = Embed(
                 title="O Ticket foi apagado!",
                 description=f"{interaction.user.mention}, o ticket será apagado em 5 segundos!",
-                color=0xFF3030,
+                color=0x9F6CFD,
             )
             await interaction.response.send_message(embed=embed)
             await interaction.message.edit(
@@ -221,7 +221,7 @@ class PersistentTicketClosedButtons(PersistentViewBase):
             embed = Embed(
                 title="Ticket destrancado!",
                 description=f"{interaction.user.mention}, o ticket foi destrancado, caso queira abrir tranca-lo clique no botão trancar.",
-                color=0xFF3030,
+                color=0x9F6CFD,
             )
             await interaction.message.edit(
                 view=PersistentTicketClosedButtons().disable_buttons()
@@ -249,7 +249,7 @@ class PersistentTicketClosedButtons(PersistentViewBase):
             embed = Embed(
                 title="O Ticket foi apagado!",
                 description=f"{interaction.user.mention}, o ticket será apagado em 5 segundos!",
-                color=0xFF3030,
+                color=0x9F6CFD,
             )
             await interaction.response.send_message(embed=embed)
             await sleep(5)
