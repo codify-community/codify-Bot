@@ -1,5 +1,5 @@
 from discord.ext import commands
-from discord import Permissions, app_commands, Member, Interaction
+from discord import app_commands, Member, Interaction
 from discord.ext.commands import Context
 
 

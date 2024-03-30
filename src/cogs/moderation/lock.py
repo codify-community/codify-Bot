@@ -3,7 +3,6 @@ from discord import app_commands, Interaction
 from discord.ext.commands import Context
 
 from use_cases.moderation.lock import LockUseCase
-from utils.embed import create_lock_embed
 
 
 class LockCog(commands.Cog):

@@ -1,6 +1,6 @@
 from discord.ext import commands
 from discord.ext.commands import Context
-from discord import Permissions, app_commands
+from discord import app_commands
 
 from use_cases.moderation.slowmode import SlowmodeUseCase
 

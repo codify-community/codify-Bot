@@ -1,5 +1,5 @@
 from discord.ext import commands
-from discord import Permissions, app_commands, Interaction
+from discord import app_commands, Interaction
 from discord.ext.commands import Context
 
 from use_cases.utils.giveaway import EndUseCase, GiveawayUseCase, RerollUseCase
@@ -67,9 +67,9 @@ class GiveawayCog(commands.Cog):
     @commands.command(name="reroll", aliases=["sortearnovamente"])
     @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
-    async def reroll(self, ctx: Context, sorteio_id: str):
+    async def reroll(self, ctx: Context, sorteio_id: str, vencedores: int = None):
         reroll_use_case = RerollUseCase(send=ctx.send, author=ctx.author)
-        await reroll_use_case.execute(ctx.channel, sorteio_id, self.client)
+        await reroll_use_case.execute(ctx.channel, sorteio_id, vencedores, self.client)
 
     @group.command(
         name="resortear",
@@ -78,13 +78,13 @@ class GiveawayCog(commands.Cog):
     @app_commands.checks.cooldown(1, 5, key=lambda i: i.guild.id)
     @app_commands.default_permissions(administrator=True)
     @app_commands.checks.has_permissions(administrator=True)
-    async def reroll_slash(self, interaction: Interaction, sorteio_id: str):
+    async def reroll_slash(self, interaction: Interaction, sorteio_id: str, vencedores: int = None):
         reroll_use_case = RerollUseCase(
             send=interaction.response.send_message,
             author=interaction.user,
             ephemeral=True,
         )
-        await reroll_use_case.execute(interaction.channel, sorteio_id, self.client)
+        await reroll_use_case.execute(interaction.channel, sorteio_id, vencedores, self.client)
 
     @commands.command(name="end", aliases=["terminar"])
     @commands.cooldown(1, 5, commands.BucketType.guild)

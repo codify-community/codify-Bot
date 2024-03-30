@@ -9,14 +9,14 @@ from env import env
 
 ca = certifi.where()
 client = MongoClient(env.mongo_uri, tlsCAFile=ca)
-db = client["Codify"]
+db = client["codify"]
 
 
 class UserDatabase:
     def __init__(self):
         self.collection = db["users"]
 
-    async def create_user(self, user_id: int) -> InsertOneResult:
+    async def create_user(self, user_id: int) -> dict:
         user = {
             "_id": user_id,
             "warns": [],
@@ -33,7 +33,7 @@ class UserDatabase:
 
     async def get_warns(
         self, user_id: int, page_size: int = 5, page: int = 1
-    ) -> List[Dict[str, Dict[str, str]]]:
+    ) -> dict:
         user = await self.get_user(user_id)
         warns = user["warns"][::-1]
         paginated_warns = warns[(page - 1) * page_size : page * page_size]
