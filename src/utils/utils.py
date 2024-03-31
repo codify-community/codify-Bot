@@ -11,7 +11,7 @@ def create_user_json(user: User, role: Role):
         "id": user.id,
         "role": config["guild"]["roles_name"][str(role.id)],
         "name": user.name,
-        "pfp": str(user.avatar.url),
+        "avatarUrl": str(user.avatar.url),
     }
 
 
@@ -30,16 +30,16 @@ def get_updated_users(discord_users, db_users):
             db_user.update(user)
             updated_users.append(db_user)
         else:
-            user.update(
+            updated_users.append(
                 {
-                    "habilidades": ["Não Informado"],
-                    "bio": "Biografia Não Definida",
-                    "ocupacao": "Ocupação não definida",
-                    "github": "https://github.com/codify-community",
+                    "role": user["role"],
+                    "member": {
+                        "id": user["id"],
+                        "name": user["name"],
+                        "avatarUrl": user["avatarUrl"],
+                    },
                 }
             )
-
-            updated_users.append(user)
 
     return updated_users
 
