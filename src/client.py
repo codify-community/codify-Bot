@@ -19,7 +19,7 @@ class MyClient(commands.Bot):
             for e in os.listdir(f"./src/cogs/{i}"):
                 if str(e).endswith(".py"):
                     await client.load_extension(f"cogs.{i}.{e[:-3]}")
-                    print(f"✅ {i.capitalize()}/{e.capitalize()}\t cog loaded")
+                    print(f"✅ Cog loaded {i.capitalize()}/{e.capitalize()}")
 
         # self.add_view(PersistentTicketView())
         # self.add_view(PersistentTicketButtons())

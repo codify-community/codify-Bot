@@ -2,7 +2,7 @@ from discord import Guild, User
 from discord.ext import commands, tasks
 from env import config
 
-from utils.database import statsDatabase
+from repositories.stats_repository import statsRepository
 from utils.utils import get_updated_users, create_user_json
 
 
@@ -18,7 +18,7 @@ class WebsiteTasksCog(commands.Cog):
             member_count = int(guild.member_count)
             channel_count = len(guild.channels)
 
-            db_staffs, db_boosters = await statsDatabase.get_users()
+            db_staffs, db_boosters = await statsRepository.get_users()
             discord_staffs, discord_boosters = [], []
 
             for member in guild.members:
@@ -43,7 +43,7 @@ class WebsiteTasksCog(commands.Cog):
             updated_staffs = get_updated_users(discord_staffs, db_staffs)
             updated_boosters = get_updated_users(discord_boosters, db_boosters)
 
-            await statsDatabase.update(
+            await statsRepository.update(
                 channel_count, member_count, updated_staffs + updated_boosters
             )
 

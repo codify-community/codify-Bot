@@ -1,7 +1,7 @@
 from discord import ButtonStyle, Interaction, Member
 
 from use_cases.base import UseCase
-from utils.database import userDatabase
+from repositories.user_repository import userRepository
 from utils.embed import create_warns_embed
 from utils.factories import CustomButton, CustomView
 
@@ -27,8 +27,8 @@ class WarnUseCase(UseCase):
                 ephemeral=self.ephemeral,
             )
 
-        await userDatabase.get_user(member.id)
-        await userDatabase.add_warn(member.id, reason)
+        await userRepository.get_user(member.id)
+        await userRepository.add_warn(member.id, reason)
 
         await self.send_message(
             f"{self.author.mention} | O warn foi adicionado com sucesso.",
@@ -57,10 +57,10 @@ class UnwarnUseCase(UseCase):
                 ephemeral=self.ephemeral,
             )
 
-        await userDatabase.get_user(member.id)
+        await userRepository.get_user(member.id)
 
         try:
-            await userDatabase.remove_warn(member.id, warn_id)
+            await userRepository.remove_warn(member.id, warn_id)
         except ValueError:
             return await self.send_message(
                 f"{self.author.mention} | O warn não foi encontrado.",
@@ -82,7 +82,7 @@ class WarnsUseCase(UseCase):
                 ephemeral=self.ephemeral,
             )
 
-        warns = await userDatabase.get_warns(member.id)
+        warns = await userRepository.get_warns(member.id)
         if warns["count"] == 0:
             return await self.send_message(
                 f"{self.author.mention} | O membro não possui warns.",
@@ -125,7 +125,7 @@ class WarnsUseCase(UseCase):
                 1 if button_interaction.data["custom_id"] == "next_page" else -1
             )
 
-            warns = await userDatabase.get_warns(
+            warns = await userRepository.get_warns(
                 context["member"].id, page=context["current_page"]
             )
 
