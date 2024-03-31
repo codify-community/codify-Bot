@@ -1,7 +1,7 @@
 from uuid import uuid4
 from datetime import datetime
 
-from connection import client
+from .connection import client
 
 
 class UserRepository:

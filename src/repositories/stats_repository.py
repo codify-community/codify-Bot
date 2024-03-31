@@ -1,7 +1,7 @@
 from typing import List, Dict
 from pymongo.results import UpdateResult
 
-from connection import client
+from .connection import client
 
 
 class StatsRepository:

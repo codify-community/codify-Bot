@@ -1,7 +1,7 @@
 from typing import Dict
 from datetime import datetime
 
-from connection import client
+from .connection import client
 
 
 class CryptoRepository:
