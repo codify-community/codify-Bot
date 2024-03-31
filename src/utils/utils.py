@@ -1,11 +1,57 @@
 from datetime import datetime, timedelta
 from typing import Tuple
 
+from discord import Role, User
+
 from env import config
 
 
+def create_user_json(user: User, role: Role):
+    return {
+        "id": user.id,
+        "role": config["guild"]["roles_name"][str(role.id)],
+        "name": user.name,
+        "pfp": str(user.avatar.url),
+    }
+
+
+def get_updated_users(discord_users, db_users):
+    updated_users = []
+
+    for user in discord_users:
+        db_user = {}
+
+        for i in db_users:
+            if user["id"] == i["member"]["id"]:
+                db_user = i
+                break
+
+        if db_user:
+            db_user.update(user)
+            updated_users.append(db_user)
+        else:
+            user.update(
+                {
+                    "habilidades": ["Não Informado"],
+                    "bio": "Biografia Não Definida",
+                    "ocupacao": "Ocupação não definida",
+                    "github": "https://github.com/codify-community",
+                }
+            )
+
+            updated_users.append(user)
+
+    return updated_users
+
+
 def is_user_staff(roles):
-    return any([role.id in config["guild"]["roles"]["staff"] for role in roles])
+    return any(
+        [
+            role.id
+            in config["guild"]["roles"]["staff"] + config["guild"]["roles"]["staffs"]
+            for role in roles
+        ]
+    )
 
 
 def is_giveaway(client, giveaway) -> bool:

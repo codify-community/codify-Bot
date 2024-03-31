@@ -75,9 +75,7 @@ class BanCog(commands.Cog):
             author=interaction.user,
             ephemeral=True,
         )
-        await unban_use_case.execute(
-            interaction.guild, membro, motivo, self.client
-        )
+        await unban_use_case.execute(interaction.guild, membro, motivo, self.client)
 
 
 async def setup(client):

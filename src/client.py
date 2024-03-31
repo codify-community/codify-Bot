@@ -3,11 +3,11 @@ from discord.ext import commands
 
 from env import env
 
-from utils.factories import (
-    PersistentTicketView,
-    PersistentTicketButtons,
-    PersistentTicketClosedButtons,
-)
+# from utils.factories import (
+#     PersistentTicketView,
+#     PersistentTicketButtons,
+#     PersistentTicketClosedButtons,
+# )
 
 
 class MyClient(commands.Bot):
@@ -19,11 +19,11 @@ class MyClient(commands.Bot):
             for e in os.listdir(f"./src/cogs/{i}"):
                 if str(e).endswith(".py"):
                     await client.load_extension(f"cogs.{i}.{e[:-3]}")
-                    print(f"✅ {e.capitalize()}\t cog loaded")
+                    print(f"✅ {i.capitalize()}/{e.capitalize()}\t cog loaded")
 
-        self.add_view(PersistentTicketView())
-        self.add_view(PersistentTicketButtons())
-        self.add_view(PersistentTicketClosedButtons())
+        # self.add_view(PersistentTicketView())
+        # self.add_view(PersistentTicketButtons())
+        # self.add_view(PersistentTicketClosedButtons())
 
 
 intents = discord.Intents.all()

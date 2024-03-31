@@ -11,11 +11,10 @@ class StartupCog(commands.Cog):
             discord.Game(name="Ilha das Pithons 🐍"),
             discord.Activity(
                 type=discord.ActivityType.listening,
-                name="Lofi enquanto corrijo bugs 🐜"
+                name="Lofi enquanto corrijo bugs 🐜",
             ),
             discord.Activity(
-                type=discord.ActivityType.watching,
-                name="Commits da Codify 🚀"
+                type=discord.ActivityType.watching, name="Commits da Codify 🚀"
             ),
         ]
         self.current_activity_index = 0

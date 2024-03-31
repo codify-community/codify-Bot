@@ -84,7 +84,9 @@ class GiveawayUseCase(UseCase):
 
 class RerollUseCase(UseCase):
 
-    async def execute(self, channel: TextChannel, giveaway_id: int, new_winners: int, client):
+    async def execute(
+        self, channel: TextChannel, giveaway_id: int, new_winners: int, client
+    ):
         giveaway = await channel.fetch_message(giveaway_id)
 
         try:
@@ -97,7 +99,11 @@ class RerollUseCase(UseCase):
 
         giveaway_embed = giveaway.embeds[0]
         name = giveaway_embed.title
-        num_winners = int(giveaway_embed.fields[0].name.split(": ")[1]) if not new_winners else new_winners
+        num_winners = (
+            int(giveaway_embed.fields[0].name.split(": ")[1])
+            if not new_winners
+            else new_winners
+        )
         endtime = int(
             giveaway_embed.description.split("Sorteio encerrado ")[-1].split(":")[1]
         )
