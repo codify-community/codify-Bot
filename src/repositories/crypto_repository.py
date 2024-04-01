@@ -13,7 +13,7 @@ class CryptoRepository:
 
         prices = {
             crypto["symbol"]: {
-                "price": crypto["price"],
+                "price": float(crypto["price"]),
                 "status": (
                     "up"
                     if old_prices
