@@ -8,13 +8,13 @@ class StartupCog(commands.Cog):
         self.client = client
         self.activities = [
             discord.Game(name="Codify Community"),
-            discord.Game(name="Ilha das Pithons 🐍"),
+            discord.Game(name="ilha das pythons 🐍"),
             discord.Activity(
                 type=discord.ActivityType.listening,
-                name="Lofi enquanto corrijo bugs 🐜",
+                name="lofi enquanto corrijo bugs 🐜",
             ),
             discord.Activity(
-                type=discord.ActivityType.watching, name="Commits da Codify 🚀"
+                type=discord.ActivityType.watching, name="commits da Codify 🚀"
             ),
         ]
         self.current_activity_index = 0
