@@ -21,14 +21,6 @@ class GiveawayUseCase(UseCase):
         image: str,
         client,
     ):
-        try:
-            end_datetime, seconds, _ = convert_to_seconds(time)
-        except ValueError as e:
-            return await self.send_message(
-                f"{self.author.mention} | O tempo inserido é inválido. {e}",
-                ephemeral=self.ephemeral,
-            )
-
         if winners < 1:
             return await self.send_message(
                 f"{self.author.mention} | O número de vencedores deve ser maior que 0.",
@@ -38,6 +30,14 @@ class GiveawayUseCase(UseCase):
         if winners > 10:
             return await self.send_message(
                 f"{self.author.mention} | O número de vencedores deve ser menor que 10.",
+                ephemeral=self.ephemeral,
+            )
+
+        try:
+            end_datetime, seconds, _ = convert_to_seconds(time)
+        except ValueError as e:
+            return await self.send_message(
+                f"{self.author.mention} | O tempo inserido é inválido. {e}",
                 ephemeral=self.ephemeral,
             )
 
