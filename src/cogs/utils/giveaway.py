@@ -24,7 +24,14 @@ class GiveawayCog(commands.Cog):
     ):
         giveaway_use_case = GiveawayUseCase(send=ctx.send, author=ctx.author)
         await giveaway_use_case.execute(
-            ctx.channel, nome, tempo, descrição, requisitos, vencedores, image
+            ctx.channel,
+            nome,
+            tempo,
+            descrição,
+            requisitos,
+            vencedores,
+            image,
+            self.client,
         )
 
     group = app_commands.Group(
@@ -62,6 +69,7 @@ class GiveawayCog(commands.Cog):
             requisitos,
             vencedores,
             image,
+            self.client,
         )
 
     @commands.command(name="reroll", aliases=["sortearnovamente"])
@@ -95,7 +103,7 @@ class GiveawayCog(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def end(self, ctx: Context, sorteio_id: str):
         end_use_case = EndUseCase(send=ctx.send, author=ctx.author)
-        await end_use_case.execute(ctx.channel, sorteio_id)
+        await end_use_case.execute(ctx.channel, sorteio_id, self.client)
 
     @group.command(
         name="terminar",
@@ -110,7 +118,7 @@ class GiveawayCog(commands.Cog):
             author=interaction.user,
             ephemeral=True,
         )
-        await end_use_case.execute(interaction.channel, sorteio_id)
+        await end_use_case.execute(interaction.channel, sorteio_id, self.client)
 
 
 async def setup(client):

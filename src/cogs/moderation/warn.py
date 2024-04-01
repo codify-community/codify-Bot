@@ -13,7 +13,7 @@ class WarnCog(commands.Cog):
     @commands.command(name="avisar", aliases=["warn"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)
-    async def warn(self, ctx: Context, membro: Member, motivo: str = None) -> None:
+    async def warn(self, ctx: Context, membro: Member, *, motivo: str = None) -> None:
         warn_use_case = WarnUseCase(send=ctx.send, author=ctx.author)
         await warn_use_case.execute(membro, ctx.guild.me, motivo)
 

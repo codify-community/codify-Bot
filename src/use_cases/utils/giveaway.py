@@ -1,4 +1,4 @@
-import random
+from random import random
 from datetime import datetime
 from asyncio import sleep
 from discord import TextChannel
@@ -19,6 +19,7 @@ class GiveawayUseCase(UseCase):
         requirements: str,
         winners: int,
         image: str,
+        client,
     ):
         try:
             end_datetime, seconds, _ = convert_to_seconds(time)
@@ -65,9 +66,7 @@ class GiveawayUseCase(UseCase):
             return
 
         reactions = [
-            user
-            async for user in message.reactions[0].users()
-            if user != self.client.user
+            user async for user in message.reactions[0].users() if user != client.user
         ]
         winners = sorted(reactions, key=lambda _: 0.5 - random())[0:winners]
 
@@ -87,6 +86,18 @@ class RerollUseCase(UseCase):
     async def execute(
         self, channel: TextChannel, giveaway_id: int, new_winners: int, client
     ):
+        if new_winners is not None and new_winners < 1:
+            return await self.send_message(
+                f"{self.author.mention} | O número de vencedores deve ser maior que 0.",
+                ephemeral=self.ephemeral,
+            )
+
+        if new_winners is not None and new_winners > 10:
+            return await self.send_message(
+                f"{self.author.mention} | O número de vencedores deve ser menor que 10.",
+                ephemeral=self.ephemeral,
+            )
+
         giveaway = await channel.fetch_message(giveaway_id)
 
         try:
@@ -115,9 +126,7 @@ class RerollUseCase(UseCase):
             )
 
         reactions = [
-            user
-            async for user in giveaway.reactions[0].users()
-            if user != self.client.user
+            user async for user in giveaway.reactions[0].users() if user != client.user
         ]
 
         winners = sorted(reactions, key=lambda _: 0.5 - random())[0:num_winners]
@@ -135,11 +144,11 @@ class RerollUseCase(UseCase):
 
 class EndUseCase(UseCase):
 
-    async def execute(self, channel: TextChannel, giveaway_id: int):
+    async def execute(self, channel: TextChannel, giveaway_id: int, client):
         giveaway = await channel.fetch_message(giveaway_id)
 
         try:
-            is_giveaway(self.client, giveaway)
+            is_giveaway(client, giveaway)
         except ValueError as e:
             return await self.send_message(
                 f"{self.author.mention} | {e}",
@@ -160,9 +169,7 @@ class EndUseCase(UseCase):
             )
 
         reactions = [
-            user
-            async for user in giveaway.reactions[0].users()
-            if user != self.client.user
+            user async for user in giveaway.reactions[0].users() if user != client.user
         ]
 
         winners = sorted(reactions, key=lambda _: 0.5 - random())[0:num_winners]
