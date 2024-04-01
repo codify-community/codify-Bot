@@ -13,7 +13,7 @@ class ErrorCog(commands.Cog):
     async def on_command_error(self, ctx: Context, error: CommandError) -> None:
         def get_error_message(error):
             if isinstance(error, commands.CommandOnCooldown):
-                return f"{ctx.author.mention} | Você está em cooldown. Você poderá usar comandos novamente <t:{int(time.time() + error.retry_after)}:R>."
+                return f"{ctx.author.mention} | Você está em cooldown. Você pode usar comandos novamente <t:{int(time.time() + error.retry_after)}:R>."
             elif isinstance(error, commands.MissingPermissions):
                 return f"{ctx.author.mention} | Você não tem permissão para usar esse comando."
             elif isinstance(error, commands.BotMissingPermissions):
@@ -36,7 +36,7 @@ class ErrorCog(commands.Cog):
     ) -> None:
         def get_error_message(error: AppCommandError):
             if isinstance(error, app_commands.errors.CommandOnCooldown):
-                return f"{interaction.user.mention} | Você está em cooldown. Você poderá usar esse comando novamente <t:{int(time.time() + error.retry_after)}:R>."
+                return f"{interaction.user.mention} | Você está em cooldown. Você pode usar esse comando novamente <t:{int(time.time() + error.retry_after)}:R>."
             elif isinstance(error, app_commands.errors.MissingPermissions):
                 return f"{interaction.user.mention} | Você não tem permissão para usar esse comando."
             elif isinstance(error, app_commands.errors.BotMissingPermissions):
