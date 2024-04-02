@@ -4,12 +4,13 @@ from use_cases.base import UseCase
 
 
 class KickUseCase(UseCase):
+
     async def execute(
         self,
         member: Member,
         bot: Member,
         reason: str,
-    ):
+    ) -> None:
         if member == bot:
             return await self.send_message(
                 f"{self.author.mention} | Você não pode me expulsar.",

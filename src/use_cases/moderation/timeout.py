@@ -1,11 +1,14 @@
 from discord import Member
+
 from use_cases.base import UseCase
 from utils import convert_to_seconds
 
 
 class TimeoutUseCase(UseCase):
 
-    async def execute(self, member: Member, bot: Member, reason: str, time: str):
+    async def execute(
+        self, member: Member, bot: Member, reason: str, time: str
+    ) -> None:
         if member == bot:
             return await self.send_message(
                 f"{self.author.mention} | Você não pode me castigar.",

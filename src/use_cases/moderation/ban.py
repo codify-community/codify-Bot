@@ -1,4 +1,4 @@
-from discord import Member, Guild, errors
+from discord import Member, Guild, Client, errors
 
 from use_cases.base import UseCase
 
@@ -57,7 +57,7 @@ class UnbanUseCase(UseCase):
         guild: Guild,
         member: str,
         reason: str,
-        client,
+        client: Client,
     ) -> None:
         try:
             member = await client.fetch_user(member)

@@ -1,12 +1,12 @@
 from discord.ext.commands import Context
 from discord.ext import commands
-from discord import app_commands, Interaction
+from discord import app_commands, Interaction, Client
 
 from use_cases.general.top_bumpers import TopBumpersUseCase
 
 
 class TopBumpersCog(commands.Cog):
-    def __init__(self, client):
+    def __init__(self, client: Client) -> None:
         self.client = client
 
     @commands.command(name="topbumpers", aliases=["tb"])

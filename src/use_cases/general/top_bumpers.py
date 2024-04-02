@@ -6,7 +6,7 @@ from use_cases.base import UseCase
 
 
 class TopBumpersUseCase(UseCase):
-    def __init__(self, send, author, ephemeral=False):
+    def __init__(self, send, author, ephemeral=False) -> None:
         super().__init__(send, author, ephemeral)
         self.user_repository = UsersRepository()
 

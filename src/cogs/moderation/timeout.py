@@ -1,11 +1,11 @@
 from discord.ext import commands
-from discord import Member, app_commands
+from discord import app_commands, Member, Client
 
 from use_cases.moderation.timeout import TimeoutUseCase
 
 
 class TimeoutCog(commands.Cog):
-    def __init__(self, client):
+    def __init__(self, client: Client) -> None:
         self.client = client
 
     @commands.command(name="castigar", aliases=["timeout"])

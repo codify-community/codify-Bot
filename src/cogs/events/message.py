@@ -1,5 +1,5 @@
 from discord.ext import commands
-from discord import Message
+from discord import Message, Client
 
 from env import config
 from repositories.users_repository import UsersRepository
@@ -8,8 +8,8 @@ FIBO_BOT_ID = config["bots"]["fibo"]
 GUILD_ID = config["guild"]["id"]
 
 
-class MessageCog(commands.Cog):
-    def __init__(self, client):
+class MessageEventCog(commands.Cog):
+    def __init__(self, client: Client) -> None:
         self.client = client
         self.user_repository = UsersRepository()
 
@@ -33,4 +33,4 @@ class MessageCog(commands.Cog):
 
 
 async def setup(client):
-    await client.add_cog(MessageCog(client))
+    await client.add_cog(MessageEventCog(client))

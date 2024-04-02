@@ -6,7 +6,8 @@ from env import config
 
 
 class MuteUseCase(UseCase):
-    async def execute(self, member: Member, bot: Member, guild: Guild):
+
+    async def execute(self, member: Member, bot: Member, guild: Guild) -> None:
         if member == bot:
             return await self.send_message(
                 f"{self.author.mention} | Você não pode me mutar.",
@@ -41,7 +42,8 @@ class MuteUseCase(UseCase):
 
 
 class UnmuteUseCase(UseCase):
-    async def execute(self, member: Member, bot: Member, guild: Guild):
+
+    async def execute(self, member: Member, bot: Member, guild: Guild) -> None:
         if member == bot:
             return await self.send_message(
                 f"{self.author.mention} | Você não pode me desmutar.",

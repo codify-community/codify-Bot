@@ -1,8 +1,7 @@
 from discord import Embed, Member
 
-from use_cases.base import UseCase
-
 from env import config
+from use_cases.base import UseCase
 
 
 class NpapUseCase(UseCase):

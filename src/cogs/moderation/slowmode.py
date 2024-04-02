@@ -1,12 +1,12 @@
 from discord.ext import commands
 from discord.ext.commands import Context
-from discord import app_commands
+from discord import app_commands, Client
 
 from use_cases.moderation.slowmode import SlowmodeUseCase
 
 
 class SlowModeCog(commands.Cog):
-    def __init__(self, client):
+    def __init__(self, client: Client) -> None:
         self.client = client
 
     @commands.command(name="slowmode", aliases=["modolento"])

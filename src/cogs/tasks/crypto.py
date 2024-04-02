@@ -1,4 +1,5 @@
 import requests
+from discord import Client
 from discord.ext import commands
 from discord.ext import tasks
 
@@ -18,7 +19,7 @@ cryptos = {
 
 
 class CriptoTasksCog(commands.Cog):
-    def __init__(self, client):
+    def __init__(self, client: Client) -> None:
         self.client = client
         self.crypto_repository = CryptosRepository()
 

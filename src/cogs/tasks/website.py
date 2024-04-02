@@ -1,4 +1,4 @@
-from discord import Guild, User
+from discord import Guild, User, Client
 from discord.ext import commands, tasks
 
 from env import config
@@ -8,7 +8,7 @@ from utils import get_updated_users, create_user_json
 
 
 class WebsiteTasksCog(commands.Cog):
-    def __init__(self, client):
+    def __init__(self, client: Client) -> None:
         self.client = client
         self.stats_repository = StatsRepository()
 

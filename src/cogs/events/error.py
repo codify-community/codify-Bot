@@ -1,12 +1,12 @@
 import time
 from discord.ext import commands
-from discord import Interaction, app_commands
+from discord import Client, Interaction, app_commands
 from discord.app_commands import AppCommandError
 from discord.ext.commands import Context, CommandError
 
 
-class ErrorCog(commands.Cog):
-    def __init__(self, client):
+class ErrorEventCog(commands.Cog):
+    def __init__(self, client: Client) -> None:
         self.client = client
 
     @commands.Cog.listener()
@@ -53,4 +53,4 @@ class ErrorCog(commands.Cog):
 
 
 async def setup(client):
-    await client.add_cog(ErrorCog(client))
+    await client.add_cog(ErrorEventCog(client))

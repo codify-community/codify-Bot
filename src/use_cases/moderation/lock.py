@@ -1,17 +1,18 @@
 from typing import TYPE_CHECKING
 from discord import Role
 
-from utils.embed import create_lock_embed
-
 if TYPE_CHECKING:
     from discord.abc import MessageableChannel
 
 from use_cases.base import UseCase
+from utils.embed import create_lock_embed
 
 
 class LockUseCase(UseCase):
 
-    async def execute(self, channel: "MessageableChannel", default_role: "Role"):
+    async def execute(
+        self, channel: "MessageableChannel", default_role: "Role"
+    ) -> None:
         channel_permissions = channel.permissions_for(default_role)
         await channel.set_permissions(
             default_role,

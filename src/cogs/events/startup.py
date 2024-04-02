@@ -1,21 +1,19 @@
-import discord
+from discord import Client, Game, Activity, ActivityType, Object
 from asyncio import sleep
 from discord.ext import commands
 
 
-class StartupCog(commands.Cog):
-    def __init__(self, client):
+class StartupEventCog(commands.Cog):
+    def __init__(self, client: Client) -> None:
         self.client = client
         self.activities = [
-            discord.Game(name="Codify Community"),
-            discord.Game(name="ilha das pythons 🐍"),
-            discord.Activity(
-                type=discord.ActivityType.listening,
+            Game(name="Codify Community"),
+            Game(name="ilha das pythons 🐍"),
+            Activity(
+                type=ActivityType.listening,
                 name="lofi enquanto corrijo bugs 🐜",
             ),
-            discord.Activity(
-                type=discord.ActivityType.watching, name="commits da Codify 🚀"
-            ),
+            Activity(type=ActivityType.watching, name="commits da Codify 🚀"),
         ]
         self.current_activity_index = 0
 
@@ -25,8 +23,8 @@ class StartupCog(commands.Cog):
 
         for guild in self.client.guilds:
             print(f"🕐 Syncing commands for {guild.name}")
-            self.client.tree.copy_global_to(guild=discord.Object(id=guild.id))
-            await self.client.tree.sync(guild=discord.Object(id=guild.id))
+            self.client.tree.copy_global_to(guild=Object(id=guild.id))
+            await self.client.tree.sync(guild=Object(id=guild.id))
 
         print("🕐 All commands synced!")
 
@@ -40,4 +38,4 @@ class StartupCog(commands.Cog):
 
 
 async def setup(client):
-    await client.add_cog(StartupCog(client))
+    await client.add_cog(StartupEventCog(client))

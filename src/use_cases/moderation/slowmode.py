@@ -9,7 +9,7 @@ from utils import convert_to_seconds
 
 class SlowmodeUseCase(UseCase):
 
-    async def execute(self, channel: "MessageableChannel", time: str):
+    async def execute(self, channel: "MessageableChannel", time: str) -> None:
         try:
             _, seconds, timedelta = convert_to_seconds(time)
         except ValueError as e:

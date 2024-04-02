@@ -1,4 +1,4 @@
-from discord import app_commands, Interaction
+from discord import app_commands, Interaction, Client
 from discord.ext.commands import Context
 from discord.ext import commands
 
@@ -6,7 +6,7 @@ from use_cases.utils.ticket import TicketUseCase
 
 
 class TicketCog(commands.Cog):
-    def __init__(self, client):
+    def __init__(self, client: Client) -> None:
         self.client = client
 
     # @commands.group(

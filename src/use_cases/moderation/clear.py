@@ -8,12 +8,13 @@ from use_cases.base import UseCase
 
 
 class ClearUseCase(UseCase):
+
     async def execute(
         self,
         channel: "MessageableChannel",
         quantity: int,
         response: InteractionResponse = None,
-    ):
+    ) -> None:
         if quantity > 100:
             return await self.send_message(
                 f"{self.author.mention} | Você não pode limpar mais de 100 mensagens.",

@@ -2,16 +2,17 @@ from discord import ButtonStyle, Interaction, Member
 
 from use_cases.base import UseCase
 from repositories.users_repository import UsersRepository
+
 from utils.embed import create_warns_embed
 from utils.factories import CustomButton, CustomView
 
 
 class WarnUseCase(UseCase):
-    def __init__(self, send, author, ephemeral=False):
+    def __init__(self, send, author, ephemeral=False) -> None:
         super().__init__(send, author, ephemeral)
         self.user_repository = UsersRepository()
 
-    async def execute(self, member: Member, bot: Member, reason: str):
+    async def execute(self, member: Member, bot: Member, reason: str) -> None:
         if member.bot:
             return await self.send_message(
                 f"{self.author.mention} | Você não pode usar este comando em bots.",
@@ -39,11 +40,11 @@ class WarnUseCase(UseCase):
 
 
 class UnwarnUseCase(UseCase):
-    def __init__(self, send, author, ephemeral=False):
+    def __init__(self, send, author, ephemeral=False) -> None:
         super().__init__(send, author, ephemeral)
         self.user_repository = UsersRepository()
 
-    async def execute(self, member: Member, bot: Member, warn_id: str):
+    async def execute(self, member: Member, bot: Member, warn_id: str) -> None:
         if member.bot:
             return await self.send_message(
                 f"{self.author.mention} | Você não pode usar este comando em bots.",
@@ -77,11 +78,11 @@ class UnwarnUseCase(UseCase):
 
 
 class WarnsUseCase(UseCase):
-    def __init__(self, send, author, ephemeral=False):
+    def __init__(self, send, author, ephemeral=False) -> None:
         super().__init__(send, author, ephemeral)
         self.user_repository = UsersRepository()
 
-    async def execute(self, member: Member, bot: Member):
+    async def execute(self, member: Member, bot: Member) -> None:
         if member.bot:
             return await self.send_message(
                 f"{self.author.mention} | Você não pode usar este comando em bots.",
