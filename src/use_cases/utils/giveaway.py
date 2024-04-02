@@ -5,7 +5,7 @@ from discord import TextChannel
 
 from use_cases.base import UseCase
 from utils.embed import create_giveaway_embed, create_giveaway_winners_embed
-from utils.utils import convert_to_seconds, is_giveaway
+from utils import convert_to_seconds, is_giveaway
 
 
 class GiveawayUseCase(UseCase):

@@ -4,16 +4,24 @@ from datetime import datetime
 from .connection import client
 
 
-class CryptoRepository:
+class cryptosRepository:
     def __init__(self) -> None:
         self.collection = client["codify"]["crypto"]
+
+    async def fetch_prices(self) -> Dict[str, str]:
+        prices = self.collection.find_one({"_id": "0"})
+        return prices["prices"] if prices else {}
 
     async def update_prices(self, data: Dict[str, str]) -> None:
         old_prices = self.collection.find_one({"_id": "0"})
 
+        data = [
+            {"symbol": crypto["symbol"], "price": float(crypto["price"])}
+            for crypto in data
+        ]
         prices = {
             crypto["symbol"]: {
-                "price": float(crypto["price"]),
+                "price": crypto["price"],
                 "status": (
                     "up"
                     if old_prices
@@ -26,14 +34,13 @@ class CryptoRepository:
         }
 
         if not old_prices:
-            self.collection.insert_one(
+            return self.collection.insert_one(
                 {"_id": "0", "prices": prices, "updatedAt": datetime.now()}
             )
-            return
 
         self.collection.update_one(
             {"_id": "0"}, {"$set": {"prices": prices, "updatedAt": datetime.now()}}
         )
 
 
-cryptoRepository = CryptoRepository()
+cryptos_repository = cryptosRepository()

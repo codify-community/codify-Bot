@@ -5,7 +5,7 @@ from discord import Embed
 from discord.utils import get
 
 from env import config
-from utils.utils import is_user_staff
+from utils import is_user_staff
 
 
 class CustomView(View):

@@ -4,7 +4,7 @@ if TYPE_CHECKING:
     from discord.abc import MessageableChannel
 
 from use_cases.base import UseCase
-from utils.utils import convert_to_seconds
+from utils import convert_to_seconds
 
 
 class SlowmodeUseCase(UseCase):

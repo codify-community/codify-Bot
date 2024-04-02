@@ -18,5 +18,5 @@ try:
 except ValidationError as e:
     raise Exception(f"Invalid environment variables: {e}")
 
-with open("./src/env/config.json", "r") as f:
+with open("./config.json", "r") as f:
     config = json.load(f)

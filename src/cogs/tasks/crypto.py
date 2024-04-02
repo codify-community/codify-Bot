@@ -2,7 +2,7 @@ import requests
 from discord.ext import commands
 from discord.ext import tasks
 
-from repositories.crypto_repository import cryptoRepository
+from repositories.cryptos_repository import cryptos_repository
 
 cryptos = {
     "BTC": "BTCBRL",
@@ -30,7 +30,7 @@ class CriptoTasksCog(commands.Cog):
         response = requests.get(url)
         data = response.json()
 
-        await cryptoRepository.update_prices(data)
+        await cryptos_repository.update_prices(data)
 
     get_cripto_prices.start()
 

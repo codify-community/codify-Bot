@@ -1,6 +1,6 @@
 from discord import Member
 from use_cases.base import UseCase
-from utils.utils import convert_to_seconds
+from utils import convert_to_seconds
 
 
 class TimeoutUseCase(UseCase):

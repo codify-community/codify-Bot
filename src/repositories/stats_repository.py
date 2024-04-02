@@ -8,7 +8,7 @@ class StatsRepository:
     def __init__(self) -> None:
         self.collection = client["stats"]["general"]
 
-    async def get_users(self) -> List[Dict[str, str]]:
+    async def fetch_users_stats(self) -> List[Dict[str, str]]:
         stats = self.collection.find_one({"_id": "0"})
 
         staffs = [
@@ -48,4 +48,4 @@ class StatsRepository:
         )
 
 
-statsRepository = StatsRepository()
+stats_repository = StatsRepository()
