@@ -17,6 +17,6 @@ class TopBumpersUseCase(UseCase):
         embed.set_thumbnail(url=config["guild"]["icon"])
         for place, user in enumerate(top_bumpers, start=1):
             embed.description += (
-                f"**{place}º** <@{user['_id']}> com {user['bumpCount']} bumps\n"
+                f"**{place}º** <@{user['_id']}> com {user['bumpCount']} {'bumps' if user['bumpCount'] > 1 else 'bump'}!\n"
             )
         await self.send_message(embed=embed)
