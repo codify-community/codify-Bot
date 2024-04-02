@@ -1,7 +1,10 @@
 # Environment
 .env
 
-venv
+add venv to gitignore
+# Virtual Environment
+venv/
+pyvenv.cfg
 
 # Cache
 __pycache__/
