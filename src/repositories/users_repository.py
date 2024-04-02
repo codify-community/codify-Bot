@@ -1,6 +1,8 @@
 from uuid import uuid4
 from datetime import datetime
 
+import pymongo
+
 from .connection import client
 
 
@@ -25,6 +27,11 @@ class UsersRepository:
             return await self.create(user_id)
 
         return user
+
+    async def get_bumpers(self, limit: int = 10) -> list:
+        return list(
+            self.collection.find().sort("bumpCount", pymongo.DESCENDING).limit(limit)
+        )
 
     async def fetch_warns(
         self, user_id: int, page_size: int = 5, page: int = 1
