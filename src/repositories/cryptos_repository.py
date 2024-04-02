@@ -4,7 +4,7 @@ from datetime import datetime
 from .connection import client
 
 
-class cryptosRepository:
+class CryptosRepository:
     def __init__(self) -> None:
         self.collection = client["codify"]["crypto"]
 
@@ -41,6 +41,3 @@ class cryptosRepository:
         self.collection.update_one(
             {"_id": "0"}, {"$set": {"prices": prices, "updatedAt": datetime.now()}}
         )
-
-
-cryptos_repository = cryptosRepository()

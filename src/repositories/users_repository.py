@@ -70,6 +70,3 @@ class UsersRepository:
     async def bump(self, user_id: int) -> None:
         await self.get_user(user_id)
         self.collection.update_one({"_id": user_id}, {"$inc": {"bumpCount": 1}})
-
-
-users_repository = UsersRepository()

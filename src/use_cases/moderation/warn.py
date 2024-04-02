@@ -1,12 +1,15 @@
 from discord import ButtonStyle, Interaction, Member
 
 from use_cases.base import UseCase
-from repositories.users_repository import users_repository
+from repositories.users_repository import UsersRepository
 from utils.embed import create_warns_embed
 from utils.factories import CustomButton, CustomView
 
 
 class WarnUseCase(UseCase):
+    def __init__(self, send, author, ephemeral=False):
+        super().__init__(send, author, ephemeral)
+        self.user_repository = UsersRepository()
 
     async def execute(self, member: Member, bot: Member, reason: str):
         if member.bot:
@@ -27,7 +30,7 @@ class WarnUseCase(UseCase):
                 ephemeral=self.ephemeral,
             )
 
-        await users_repository.create_warn(member.id, reason)
+        await self.user_repository.create_warn(member.id, reason)
 
         await self.send_message(
             f"{self.author.mention} | O warn foi adicionado com sucesso.",
@@ -36,6 +39,9 @@ class WarnUseCase(UseCase):
 
 
 class UnwarnUseCase(UseCase):
+    def __init__(self, send, author, ephemeral=False):
+        super().__init__(send, author, ephemeral)
+        self.user_repository = UsersRepository()
 
     async def execute(self, member: Member, bot: Member, warn_id: str):
         if member.bot:
@@ -57,7 +63,7 @@ class UnwarnUseCase(UseCase):
             )
 
         try:
-            await users_repository.remove_warn(member.id, warn_id)
+            await self.user_repository.remove_warn(member.id, warn_id)
         except ValueError:
             return await self.send_message(
                 f"{self.author.mention} | O warn não foi encontrado.",
@@ -71,6 +77,9 @@ class UnwarnUseCase(UseCase):
 
 
 class WarnsUseCase(UseCase):
+    def __init__(self, send, author, ephemeral=False):
+        super().__init__(send, author, ephemeral)
+        self.user_repository = UsersRepository()
 
     async def execute(self, member: Member, bot: Member):
         if member.bot:
@@ -79,7 +88,7 @@ class WarnsUseCase(UseCase):
                 ephemeral=self.ephemeral,
             )
 
-        warns = await users_repository.fetch_warns(member.id)
+        warns = await self.user_repository.fetch_warns(member.id)
         if warns["count"] == 0:
             return await self.send_message(
                 f"{self.author.mention} | O membro não possui warns.",
@@ -122,7 +131,7 @@ class WarnsUseCase(UseCase):
                 1 if button_interaction.data["custom_id"] == "next_page" else -1
             )
 
-            warns = await users_repository.fetch_warns(
+            warns = await self.user_repository.fetch_warns(
                 context["member"].id, page=context["current_page"]
             )
 

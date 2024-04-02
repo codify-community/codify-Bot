@@ -46,6 +46,3 @@ class StatsRepository:
                 }
             },
         )
-
-
-stats_repository = StatsRepository()

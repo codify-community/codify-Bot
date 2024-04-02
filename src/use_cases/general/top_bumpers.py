@@ -1,14 +1,17 @@
 from discord import Embed
 
 from env import config
-from repositories.users_repository import users_repository
+from repositories.users_repository import UsersRepository
 from use_cases.base import UseCase
 
 
 class TopBumpersUseCase(UseCase):
+    def __init__(self, send, author, ephemeral=False):
+        super().__init__(send, author, ephemeral)
+        self.user_repository = UsersRepository()
 
     async def execute(self):
-        top_bumpers = await users_repository.get_bumpers()
+        top_bumpers = await self.user_repository.get_bumpers()
 
         embed = Embed(title="Top bumpers", color=0x9F6CFD, description="")
         embed.set_thumbnail(url=config["guild"]["icon"])
