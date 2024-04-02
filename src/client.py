@@ -26,7 +26,5 @@ class MyClient(commands.Bot):
         # self.add_view(PersistentTicketClosedButtons())
 
 
-intents = discord.Intents.all()
 client = MyClient()
-
 client.run(env.token)
