@@ -4,5 +4,8 @@
 # Virtual Environment
 venv/
 
+#Hosting
+./discloud.config
+
 # Cache
 __pycache__/
