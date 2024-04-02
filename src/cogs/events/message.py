@@ -15,7 +15,9 @@ class MessageCog(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message: Message):
         if message.content.startswith(self.client.user.mention):
-            return await message.channel.send(f"{message.author.mention} | Meu prefixo é `..`!")
+            return await message.channel.send(
+                f"{message.author.mention} | Meu prefixo é `..`!"
+            )
 
         if message.author.id == FIBO_BOT_ID and message.guild.id == GUILD_ID:
             if message.content.startswith(
