@@ -18,7 +18,7 @@ class WelcomeEventCog(commands.Cog):
             channel = guild.get_channel(WELCOME_CHANNEL_ID)
 
             embed = Embed(
-                description=f"""Olá, {member.name}.
+                description=f"""Olá, {member.name.capitalize()}.
 Seja bem-vindo(a) a Codify Community!
 
 Você é nosso membro número {guild.member_count}!""",
