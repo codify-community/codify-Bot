@@ -3,6 +3,7 @@ from discord.ext import commands
 
 from env import env, config
 
+GUILD_ID = config["guild"]["id"]
 WELCOME_CHANNEL_ID = config["guild"]["channels"]["welcome"]
 
 
@@ -13,13 +14,14 @@ class WelcomeEventCog(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member: Member):
         if env.environment == "prod":
-            channel = self.client.get_channel(WELCOME_CHANNEL_ID)
+            guild = self.client.get_guild(GUILD_ID)
+            channel = guild.get_channel(WELCOME_CHANNEL_ID)
 
             embed = Embed(
                 description=f"""Olá, {member.name}.
-    Seja bem-vindo(a) a Codify Community!
+Seja bem-vindo(a) a Codify Community!
 
-    Você é nosso membro número {len(member.guild.members)}""",
+Você é nosso membro número {guild.member_count}!""",
                 color=0x9F6CFD,
             )
             embed.add_field(
