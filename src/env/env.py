@@ -6,12 +6,14 @@ load_dotenv()
 
 
 class EnvSchema(BaseModel):
+    environment: str
     mongo_uri: str
     token: str
 
 
 try:
     env = EnvSchema(
+        environment=os.getenv("ENVIRONMENT"),
         mongo_uri=os.getenv("MONGO_URI"),
         token=os.getenv("TOKEN"),
     )

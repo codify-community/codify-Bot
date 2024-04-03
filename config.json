@@ -3,6 +3,7 @@
         "id": 743482187365613641,
         "name": "Codify Community",
         "icon": "https://images-ext-1.discordapp.net/external/zaaREN9kU_pL0r5kcxGeaLxnkRXhO9TiHmb9zxCkEcw/%3Fsize%3D2048/https/cdn.discordapp.com/icons/743482187365613641/e39f355419cfb03f10e66a7ccae69931.png?format=webp&quality=lossless",
+        "banner": "https://www.dropbox.com/scl/fi/v7tt9m5roydvoip0rurir/Banner-codify.png?rlkey=eavmznzd4fhtifyp1xvns95pa&dl=1",
         "roles": {
             "staff": 1090827540865753129,
             "staffs": [743487234937978892, 1090827518132633630, 1090827521454510120],
@@ -14,6 +15,9 @@
             "1090827518132633630": "admin",
             "1090827521454510120": "mod",
             "760937445792940112": "booster"
+        },
+        "channels": {
+            "welcome": 1090827647916970065
         }
     },
     "bots": {
