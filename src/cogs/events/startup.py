@@ -15,7 +15,7 @@ class StartupEventCog(commands.Cog):
             ),
             Activity(type=ActivityType.watching, name="commits da Codify 🚀"),
         ]
-        self.current_activity_index = 0
+        self.current_activity_index: int = 0
 
     @commands.Cog.listener()
     async def on_ready(self) -> None:
