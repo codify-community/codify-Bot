@@ -32,7 +32,7 @@ Você é nosso membro número {len(member.guild.members)}""",
                 icon_url=member.guild.icon.url,
             )
             embed.set_image(url=config["guild"]["banner"])
-            embed.set_thumbnail(url=member.avatar.url)
+            embed.set_thumbnail(url=member.avatar.url if member.avatar else member.default_avatar.url)
 
             await channel.send(embed=embed)
 
