@@ -30,14 +30,14 @@ class WebsiteTasksCog(commands.Cog):
 
                 for role in reversed(member.roles):
                     if role.id in config["guild"]["roles"]["staffs"]:
-                        user: User = await self.client.get_user(member.id)
+                        user: User = self.client.get_user(member.id)
                         staff = create_user_json(user, role)
 
                         discord_staffs.append(staff)
                         break
 
                     elif role.id == config["guild"]["roles"]["booster"]:
-                        user: User = await self.client.get_user(member.id)
+                        user: User = self.client.get_user(member.id)
                         booster = create_user_json(user, role)
 
                         discord_boosters.append(booster)
