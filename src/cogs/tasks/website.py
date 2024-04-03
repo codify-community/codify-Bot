@@ -1,3 +1,4 @@
+from typing import Self
 from discord import Guild, User, Client
 from discord.ext import commands, tasks
 
@@ -13,7 +14,7 @@ class WebsiteTasksCog(commands.Cog):
         self.stats_repository = StatsRepository()
 
         @tasks.loop(minutes=10)
-        async def get_info(self):
+        async def get_info(self: Self):
             await self.client.wait_until_ready()
             guild: Guild = self.client.get_guild(config["guild"]["id"])
 
@@ -29,14 +30,14 @@ class WebsiteTasksCog(commands.Cog):
 
                 for role in reversed(member.roles):
                     if role.id in config["guild"]["roles"]["staffs"]:
-                        user: User = await self.client.fetch_user(member.id)
+                        user: User = await self.client.get_user(member.id)
                         staff = create_user_json(user, role)
 
                         discord_staffs.append(staff)
                         break
 
                     elif role.id == config["guild"]["roles"]["booster"]:
-                        user: User = await self.client.fetch_user(member.id)
+                        user: User = await self.client.get_user(member.id)
                         booster = create_user_json(user, role)
 
                         discord_boosters.append(booster)

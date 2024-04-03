@@ -1,4 +1,5 @@
 import requests
+from typing import Self
 from discord import Client
 from discord.ext import commands
 from discord.ext import tasks
@@ -24,7 +25,7 @@ class CriptoTasksCog(commands.Cog):
         self.crypto_repository = CryptosRepository()
 
         @tasks.loop(minutes=5)
-        async def get_cripto_prices(self):
+        async def get_cripto_prices(self: Self):
             symbols = [f"%22{cripto}%22" for cripto in cryptos.values()]
             url = f'https://www.binance.me/api/v3/ticker/price?symbols=[{",".join(symbols)}]'
             response = requests.get(url)
