@@ -24,7 +24,7 @@ Você é nosso membro número {len(member.guild.members)}""",
             )
             embed.add_field(
                 name="Seguinte,",
-                value="Você ainda não pode ver o resto do servidor, pois precisa configurar seu perfil em Canais & Cargos localizado no topo do servidor.",
+                value="Você ainda não pode ver o resto do servidor, pois precisa configurar seu perfil em Canais & Cargos localizado no canto superior esquerdo.",
                 inline=False,
             )
             embed.set_author(
