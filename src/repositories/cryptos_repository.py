@@ -10,7 +10,7 @@ class CryptosRepository:
 
     async def fetch_prices(self) -> Dict[str, str]:
         prices = self.collection.find_one({"_id": "0"})
-        return prices["prices"] if prices else {}
+        return prices if prices else {}
 
     async def update_prices(self, data: Dict[str, str]) -> None:
         old_prices = self.collection.find_one({"_id": "0"})

@@ -18,6 +18,34 @@
         },
         "channels": {
             "welcome": 1090827647916970065
+        },
+        "emojis": {
+            "increase": "<:increase:1226367333535056063>",
+            "decrease": "<:decrease:1226367331853406299>"
+        }
+    },
+    "crypto": {
+        "names": {
+            "BTC": "Bitcoin",
+            "ETH": "Ethereum",
+            "BNB": "Binance Coin",
+            "LTC": "Litecoin",
+            "AXS": "Axie Infinity",
+            "SOL": "Solana",
+            "DOT": "Polkadot",
+            "LINK": "Chainlink",
+            "CAKE": "PancakeSwap"
+        },
+        "abbreviation": {
+            "BTCBRL": "BTC",
+            "ETHBRL": "ETH",
+            "BNBBRL": "BNB",
+            "LTCBRL": "LTC",
+            "AXSBRL": "AXS",
+            "SOLBRL": "SOL",
+            "DOTBRL": "DOT",
+            "LINKBRL": "LINK",
+            "CAKEBRL": "CAKE"
         }
     },
     "bots": {
