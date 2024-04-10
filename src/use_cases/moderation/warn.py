@@ -149,5 +149,5 @@ class WarnsUseCase(UseCase):
         for button in buttons:
             button.callback = button_callback
 
-        view = CustomView(buttons=buttons, timeout=30)
+        view = CustomView(buttons=buttons)
         await self.send_message(embed=embed, view=view, ephemeral=True)

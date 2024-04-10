@@ -1,64 +1,63 @@
-import locale
+from discord.ext.commands import Context
 from discord.ext import commands
-from discord import Embed, Interaction, app_commands
+from discord import Interaction, app_commands
 
 from env import config
-from repositories.cryptos_repository import CryptosRepository
+from use_cases.general.crypto import CryptoBuyUseCase, CryptoPricesUseCase
 
 
 class CryptoCod(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.crypto_repository = CryptosRepository()
+
+    @commands.command("criptopreços", aliases=["cprices", "cprecos"])
+    @commands.cooldown(1, 30, commands.BucketType.guild)
+    async def precos(self, ctx):
+        crypto_prices_use_case = CryptoPricesUseCase(
+            send=ctx.send,
+            author=ctx.author,
+        )
+        await crypto_prices_use_case.execute()
 
     group = app_commands.Group(
         name="cripto",
         description="...",
     )
 
+    @commands.command("criptocomprar", aliases=["ccp", "cbuy"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def precos(self, ctx: Context, moeda: str, quantidade: str):
+        crypto_buy_use_case = CryptoBuyUseCase(
+            send=ctx.send,
+            author=ctx.author,
+        )
+        await crypto_buy_use_case.execute(crypto=moeda, quantity=quantidade)
+
     @group.command(
-        name="preços",
-        description="Mostra os preços das criptomoedas.",
+        name="comprar",
+        description="Compra uma criptomoeda.",
     )
-    async def historico_slash(self, interaction: Interaction):
-        result = await self.crypto_repository.fetch_prices()
-        prices = result["prices"]
-
-        embed = Embed(title="Tabela de preços", color=0x9F6CFD)
-        embed.set_author(
-            name="Codify",
-            icon_url=config["guild"]["icon"],
+    @app_commands.checks.cooldown(1, 5, key=lambda i: i.user.id)
+    @app_commands.choices(
+        moeda=[
+            app_commands.Choice(name=config["crypto"]["names"][value], value=crypto)
+            for crypto, value in config["crypto"]["abbreviation"].items()
+        ]
+    )
+    async def comprar(
+        self,
+        interaction: Interaction,
+        moeda: app_commands.Choice[str],
+        quantidade: str,
+    ):
+        crypto_buy_use_case = CryptoBuyUseCase(
+            send=interaction.response.send_message,
+            author=interaction.user,
+            ephemeral=True,
         )
-        index = 0
-        for crypto, data in prices.items():
-            emoji = (
-                config["guild"]["emojis"]["increase"]
-                if data["status"] == "up"
-                else config["guild"]["emojis"]["decrease"]
-            )
-            abbreviation = config["crypto"]["abbreviation"][crypto]
-            name = config["crypto"]["names"][abbreviation]
-
-            locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
-            value = locale.currency(data["price"], grouping=True)
-
-            embed.add_field(
-                name=f"{emoji} {name} ({abbreviation})",
-                value=value,
-                inline=True,
-            )
-            index += 1
-
-            if index % 2 == 0:
-                embed.add_field(
-                    name="\u200b", value="\u200b", inline=True
-                )
-
-        embed.set_footer(
-            text=f"Última atualização em {result['updatedAt'].strftime('%d/%m/%Y às %H:%M:%S')}"
+        await crypto_buy_use_case.execute(
+            crypto=moeda.value, quantity=quantidade, crypto_name=moeda.name
         )
-
-        await interaction.response.send_message(embed=embed)
 
 
 async def setup(client):

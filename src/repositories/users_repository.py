@@ -13,13 +13,16 @@ class UsersRepository:
     async def create(self, user_id: int) -> dict:
         user = {
             "_id": user_id,
-            "money": 0.0,
+            "patrimony": 0.0,
             "wallet": {},
             "warns": [],
             "bumpCount": 0,
         }
         self.collection.insert_one(user)
         return user
+
+    async def update_user(self, user_id: int, user: dict) -> None:
+        self.collection.update_one({"_id": user_id}, {"$set": user})
 
     async def get_user(self, user_id) -> dict:
         user = self.collection.find_one({"_id": user_id})

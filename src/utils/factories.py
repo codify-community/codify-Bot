@@ -1,3 +1,4 @@
+from typing import List, Optional
 import discord, datetime
 from asyncio import sleep
 from discord.ui import View, Select, Button, select
@@ -9,7 +10,13 @@ from utils import is_user_staff
 
 
 class CustomView(View):
-    def __init__(self, timeout: int = None, selects: list = None, buttons: list = None):
+    def __init__(
+        self,
+        timeout: int = 30,
+        selects: Optional[List[Select]] = None,
+        buttons: Optional[List[Button]] = None,
+        buttons_disabled: bool = False,
+    ):
         super().__init__(timeout=timeout)
 
         if selects:
@@ -18,6 +25,7 @@ class CustomView(View):
 
         if buttons:
             for button in buttons:
+                button.disabled = buttons_disabled
                 self.add_item(button)
 
 

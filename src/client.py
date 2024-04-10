@@ -12,7 +12,10 @@ from env import env
 
 class MyClient(commands.Bot):
     def __init__(self):
-        super().__init__(command_prefix="..", intents=discord.Intents.all())
+        super().__init__(
+            command_prefix=f"{'..' if env.environment == 'prod' else '!!'}",
+            intents=discord.Intents.all(),
+        )
 
     async def setup_hook(self):
         for i in os.listdir("./src/cogs"):
