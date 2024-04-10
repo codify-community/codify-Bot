@@ -1,3 +1,4 @@
+from datetime import datetime
 from discord import Embed, Member, Client
 from discord.ext import commands
 
@@ -27,13 +28,13 @@ Você é nosso membro número {len(member.guild.members)}""",
                 value="Você ainda não pode ver o resto do servidor, pois precisa configurar seu perfil em Canais & Cargos localizado no canto superior esquerdo.",
                 inline=False,
             )
-            embed.set_author(
-                name=member.guild.name,
-                icon_url=member.guild.icon.url,
-            )
             embed.set_image(url=config["guild"]["banner"])
             embed.set_thumbnail(
                 url=member.avatar.url if member.avatar else member.default_avatar.url
+            )
+            embed.set_footer(
+                text=datetime.now().strftime("%d/%m/%Y as %H:%M:%S"),
+                icon_url=member.guild.icon.url,
             )
 
             await channel.send(embed=embed)
