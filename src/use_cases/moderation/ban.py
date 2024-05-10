@@ -1,6 +1,7 @@
 from discord import Member, Guild, Client, errors
 
 from use_cases.base import UseCase
+from utils.utils import convert_to_seconds
 
 
 class BanUseCase(UseCase):
@@ -10,11 +11,19 @@ class BanUseCase(UseCase):
         member: Member,
         bot: Member,
         reason: str,
-        delete_after: int,
+        delete_after: str,
     ) -> None:
-        if delete_after > 7 or delete_after < 0:
+        try:
+            _, seconds, _ = convert_to_seconds(delete_after)
+        except ValueError as e:
             return await self.send_message(
-                f"{self.author.mention} | Só é possível deletar mensagens de 1 a 7 dias atrás.",
+                f"{self.author.mention} | O tempo inserido é inválido. {e}",
+                ephemeral=self.ephemeral,
+            )
+
+        if seconds > 604_800 or seconds < 0:
+            return await self.send_message(
+                f"{self.author.mention} | Só é possível deletar mensagens de até 7 dias atrás.",
                 ephemeral=self.ephemeral,
             )
 
@@ -37,7 +46,7 @@ class BanUseCase(UseCase):
             )
 
         try:
-            await member.ban(reason=reason, delete_message_days=delete_after)
+            await member.ban(reason=reason, delete_message_seconds=seconds)
         except:
             return await self.send_message(
                 f"{self.author.mention} | Ocorreu um erro ao banir o membro.",
