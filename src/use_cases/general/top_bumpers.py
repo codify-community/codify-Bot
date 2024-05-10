@@ -19,7 +19,7 @@ class TopBumpersUseCase(UseCase):
         for place, user in enumerate(top_bumpers, start=1):
             embed.description += f"**{place}º** <@{user['_id']}> com {user['bumpCount']} {'bumps' if user['bumpCount'] > 1 else 'bump'}!\n"
         embed.set_footer(
-            text=datetime.now().strftime("%d%m/%Y as %H:%M:%S"),
+            text=datetime.now().strftime("%d/%m/%Y as %H:%M:%S"),
             icon_url=self.author.guild.icon.url,
         )
 
