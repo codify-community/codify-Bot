@@ -26,6 +26,7 @@ class TimeoutCog(commands.Cog):
     @app_commands.checks.has_permissions(manage_messages=True)
     @app_commands.choices(
         tempo=[
+            app_commands.Choice(name="Remover", value="0s"),
             app_commands.Choice(name="60 segundos", value="1m"),
             app_commands.Choice(name="5 minutos", value="5m"),
             app_commands.Choice(name="15 minutos", value="15m"),
