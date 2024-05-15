@@ -10,9 +10,9 @@ class CryptoCod(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command("criptopreços", aliases=["cprices", "cprecos"])
+    @commands.command("criptoprecos", aliases=["cprices", "cprecos"])
     @commands.cooldown(1, 30, commands.BucketType.guild)
-    async def precos(self, ctx):
+    async def precos(self, ctx: Context):
         crypto_prices_use_case = CryptoPricesUseCase(
             send=ctx.send,
             author=ctx.author,
@@ -24,9 +24,22 @@ class CryptoCod(commands.Cog):
         description="...",
     )
 
+    @group.command(
+        name="preços",
+        description="Mostra os preços das criptomoedas.",
+    )
+    @app_commands.checks.cooldown(1, 30, key=lambda i: i.guild.id)
+    async def precos_slash(self, interaction: Interaction):
+        crypto_prices_use_case = CryptoPricesUseCase(
+            send=interaction.response.send_message,
+            author=interaction.user,
+            ephemeral=True,
+        )
+        await crypto_prices_use_case.execute()
+
     @commands.command("criptocomprar", aliases=["ccp", "cbuy"])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def precos(self, ctx: Context, moeda: str, quantidade: str):
+    async def comprar(self, ctx: Context, moeda: str, quantidade: str):
         crypto_buy_use_case = CryptoBuyUseCase(
             send=ctx.send,
             author=ctx.author,
@@ -44,7 +57,7 @@ class CryptoCod(commands.Cog):
             for crypto, value in config["crypto"]["abbreviation"].items()
         ]
     )
-    async def comprar(
+    async def comprar_slash(
         self,
         interaction: Interaction,
         moeda: app_commands.Choice[str],
