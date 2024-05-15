@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord import app_commands, Interaction, Client
 
 from use_cases.general.top_bumpers import TopBumpersUseCase
+from env import config
 
 
 class TopBumpersCog(commands.Cog):
@@ -13,7 +14,10 @@ class TopBumpersCog(commands.Cog):
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def top_bumpers(self, ctx: Context):
         top_bumpers_use_case = TopBumpersUseCase(send=ctx.send, author=ctx.author)
-        await top_bumpers_use_case.execute()
+        await top_bumpers_use_case.execute(
+            guild=ctx.guild,
+            client=self.client,
+        )
 
     group = app_commands.Group(name="top", description="...")
 
@@ -25,7 +29,7 @@ class TopBumpersCog(commands.Cog):
             author=interaction.user,
             ephemeral=True,
         )
-        await top_bumpers_use_case.execute()
+        await top_bumpers_use_case.execute(guild=interaction.guild, client=self.client)
 
 
 async def setup(client):

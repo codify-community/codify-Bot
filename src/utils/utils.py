@@ -6,14 +6,6 @@ from discord import Role, User
 from env import config
 
 
-def create_message(
-    type: Literal["success", "error", "cooldown"] = "success",
-    message: str = "",
-    author: User = None,
-):
-    return f"{'✅ ' if type == 'success' else '❌ ' if type == 'error' else '⏳ '}{f'{author.mention} ' if author else ''}**|** {message}"
-
-
 def create_user_json(user: User, role: Role):
     return {
         "id": user.id,
