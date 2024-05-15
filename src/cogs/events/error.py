@@ -11,22 +11,40 @@ class ErrorEventCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx: Context, error: CommandError) -> None:
-        def get_error_message(error):
+        def get_error(error):
             if isinstance(error, commands.CommandOnCooldown):
-                return f"{ctx.author.mention} | Você está em cooldown. Você pode usar comandos novamente <t:{int(time.time() + error.retry_after)}:R>."
+                return (
+                    "cooldown",
+                    f"Você está em cooldown. Você pode usar comandos novamente <t:{int(time.time() + error.retry_after)}:R>.",
+                )
             elif isinstance(error, commands.MissingPermissions):
-                return f"{ctx.author.mention} | Você não tem permissão para usar esse comando."
+                return (
+                    "error",
+                    "Você não tem permissão para usar esse comando.",
+                )
             elif isinstance(error, commands.BotMissingPermissions):
-                return f"{ctx.author.mention} | Eu não tenho permissão para fazer isso."
+                return (
+                    "error",
+                    "Eu não tenho permissão para fazer isso.",
+                )
             elif isinstance(error, commands.MissingRequiredArgument):
-                return f"{ctx.author.mention} | Você esqueceu de passar um argumento obrigatório."
+                return (
+                    "error",
+                    "Você esqueceu de passar um argumento obrigatório.",
+                )
             elif isinstance(error, commands.CommandNotFound):
-                return f"{ctx.author.mention} | Esse comando não existe."
+                return (
+                    "error",
+                    "Esse comando não existe.",
+                )
 
             print(f"❌ {error}")
-            return f"{ctx.author.mention} | Ocorreu um erro ao executar esse comando."
+            return ("error" "Ocorreu um erro ao executar esse comando.",)
 
-        await ctx.send(get_error_message(error))
+        error_type, error = get_error(error)
+        await ctx.send(
+            f"{'❌' if error_type == 'error' else '⏳'} {ctx.author.mention} | {error}"
+        )
 
     async def cog_load(self) -> None:
         self.client.tree.on_error = self.on_app_command_error
@@ -34,21 +52,32 @@ class ErrorEventCog(commands.Cog):
     async def on_app_command_error(
         self, interaction: Interaction, error: AppCommandError
     ) -> None:
-        def get_error_message(error: AppCommandError):
+        def get_error(error: AppCommandError):
             if isinstance(error, app_commands.errors.CommandOnCooldown):
-                return f"{interaction.user.mention} | Você está em cooldown. Você pode usar esse comando novamente <t:{int(time.time() + error.retry_after)}:R>."
+                return (
+                    "cooldown",
+                    f"Você está em cooldown. Você pode usar esse comando novamente <t:{int(time.time() + error.retry_after)}:R>.",
+                )
             elif isinstance(error, app_commands.errors.MissingPermissions):
-                return f"{interaction.user.mention} | Você não tem permissão para usar esse comando."
+                return (
+                    "error",
+                    "Você não tem permissão para usar esse comando.",
+                )
             elif isinstance(error, app_commands.errors.BotMissingPermissions):
-                return f"{interaction.user.mention} | Eu não tenho permissão para fazer isso."
+                return (
+                    "error",
+                    "Eu não tenho permissão para fazer isso.",
+                )
             elif isinstance(error, app_commands.errors.CommandNotFound):
-                return f"{interaction.user.mention} | Esse comando não existe."
+                return "error", "Esse comando não existe."
 
             print(f"❌ {error}")
-            return f"{interaction.user.mention} | Ocorreu um erro ao executar esse comando."
+            return "error", "Ocorreu um erro ao executar esse comando."
 
+        error_type, error = get_error(error)
         await interaction.response.send_message(
-            get_error_message(error), ephemeral=True
+            f"{'❌' if error_type == 'error' else '⏳'} {interaction.user.mention} | {error}",
+            ephemeral=True,
         )
 
 
