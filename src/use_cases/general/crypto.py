@@ -58,7 +58,7 @@ class CryptoBuyUseCase(UseCase):
         if crypto not in config["crypto"]["abbreviation"]:
             return await self.send_message(
                 f"{self.author.mention} | Moeda inválida. Informe a moeda pela sigla. Ex BTCBRL.",
-                ephemeral=True,
+                ephemeral=self.ephemeral,
             )
 
         try:
@@ -66,19 +66,19 @@ class CryptoBuyUseCase(UseCase):
         except ValueError:
             return await self.send_message(
                 f"{self.author.mention} | A quantidade deve ser um número.",
-                ephemeral=True,
+                ephemeral=self.ephemeral,
             )
 
         if quantity <= 0:
             return await self.send_message(
                 f"{self.author.mention} | A quantidade deve ser maior que 0.",
-                ephemeral=True,
+                ephemeral=self.ephemeral,
             )
 
         if len(str(quantity).split(".")[1]) > 2:
             return await self.send_message(
                 f"{self.author.mention} | A quantidade deve ter até 2 casas decimais.",
-                ephemeral=True,
+                ephemeral=self.ephemeral,
             )
 
         result = await self.crypto_repository.fetch_prices()
@@ -148,5 +148,5 @@ class CryptoBuyUseCase(UseCase):
         return await self.send_message(
             f"{self.author.mention} | Você está prestes a comprar {quantity} {crypto_name} por {value}.",
             view=CustomView(buttons=buttons),
-            ephemeral=True,
+            ephemeral=self.ephemeral,
         )

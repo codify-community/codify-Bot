@@ -3,7 +3,6 @@ from discord.ext import commands
 from discord import app_commands, Interaction, Client
 
 from use_cases.general.top_bumpers import TopBumpersUseCase
-from env import config
 
 
 class TopBumpersCog(commands.Cog):

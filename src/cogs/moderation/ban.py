@@ -50,7 +50,7 @@ class BanCog(commands.Cog):
         interaction: Interaction,
         membro: Member,
         motivo: str = "",
-        deletar_mensagens: app_commands.Choice[str] = "0s",
+        deletar_mensagens: app_commands.Choice[str] = None,
     ) -> None:
         ban_use_case = BanUseCase(
             send=interaction.response.send_message,
@@ -61,7 +61,7 @@ class BanCog(commands.Cog):
             membro,
             interaction.guild.me,
             motivo,
-            deletar_mensagens.value,
+            deletar_mensagens.value if deletar_mensagens else "0s",
         )
 
     @commands.command(name="desbanir", aliases=["unban"])
