@@ -18,7 +18,7 @@ class WelcomeEventCog(commands.Cog):
 
             embed = Embed(
                 description=f"""Olá, {member.name.capitalize()}.
-Seja bem-vindo(a) a Codify Community!
+Seja bem-vindo(a) à Codify Community!
 
 Você é nosso membro número {len(member.guild.members)}""",
                 color=0x9F6CFD,
@@ -38,6 +38,13 @@ Você é nosso membro número {len(member.guild.members)}""",
             )
 
             await channel.send(embed=embed)
+
+            try:
+                await member.send(embed=embed)
+            except Exception as e:
+                print(
+                    f"Erro ao enviar mensagem de boas-vindas (DM) para {member.name}: {e}"
+                )
 
 
 async def setup(client):
