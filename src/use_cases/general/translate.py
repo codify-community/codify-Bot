@@ -70,7 +70,10 @@ class TranslateUseCase(UseCase):
                 ephemeral=self.ephemeral,
             )
 
-        await self.send_message(content=traduzido)
+        await self.send_message(
+            content=f"{f'{self.author.mention} | ' if not self.ephemeral else ''}{traduzido}",
+            ephemeral=self.ephemeral,
+        )
 
 
 class TranslateMessageUseCase(UseCase):

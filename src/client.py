@@ -21,8 +21,11 @@ class MyClient(commands.Bot):
         for i in os.listdir("./src/cogs"):
             for e in os.listdir(f"./src/cogs/{i}"):
                 if str(e).endswith(".py"):
-                    await client.load_extension(f"cogs.{i}.{e[:-3]}")
-                    print(f"✅ Cog loaded\t {i.capitalize()}/{e.capitalize()}")
+                    try:
+                        await client.load_extension(f"cogs.{i}.{e[:-3]}")
+                        print(f"✅ Cog loaded\t {i.capitalize()}/{e.capitalize()}")
+                    except Exception:
+                        print(f"❌ Cog failed\t {i.capitalize()}/{e.capitalize()}")
 
         # self.add_view(PersistentTicketView())
         # self.add_view(PersistentTicketButtons())
