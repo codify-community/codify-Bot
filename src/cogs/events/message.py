@@ -31,6 +31,8 @@ class MessageEventCog(commands.Cog):
                 await self.user_repository.bump(bumper.id)
                 return await message.add_reaction("🚀")
 
+        # ToDO: Add level up system
+
 
 async def setup(client):
     await client.add_cog(MessageEventCog(client))
