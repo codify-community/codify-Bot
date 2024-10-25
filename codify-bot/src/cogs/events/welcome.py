@@ -43,7 +43,7 @@ Você é nosso membro número {len(member.guild.members)}""",
                 await member.send(embed=embed)
             except Exception as e:
                 print(
-                    f"Erro ao enviar mensagem de boas-vindas (DM) para {member.name}: {e}"
+                    f"❌ EVENTS_WELCOME_ERROR: ao enviar mensagem de boas-vindas (DM) para {member.name}: {e}"
                 )
 
 
