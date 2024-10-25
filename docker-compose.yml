@@ -1,0 +1,6 @@
+services:
+  bot-discord:
+    build: .
+    restart: always
+    volumes:
+      - ./codify-bot:/app
