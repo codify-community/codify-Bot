@@ -32,11 +32,11 @@ class ErrorEventCog(commands.Cog):
                     "error",
                     "Você esqueceu de passar um argumento obrigatório.",
                 )
-            elif isinstance(error, commands.CommandNotFound):
-                return (
-                    "error",
-                    "Esse comando não existe.",
-                )
+            # elif isinstance(error, commands.CommandNotFound):
+            #     return (
+            #         "error",
+            #         "Esse comando não existe.",
+            #     )
 
             print(f"❌ {error}")
             return ("error" "Ocorreu um erro ao executar esse comando.",)
