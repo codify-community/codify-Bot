@@ -1,10 +1,13 @@
-from datetime import datetime
+import locale
+
 from discord import Embed, Member, Client
 from discord.ext import commands
 
 from env import env, config
 
 WELCOME_CHANNEL_ID = config["guild"]["channels"]["welcome"]
+
+locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
 
 
 class WelcomeEventCog(commands.Cog):
@@ -20,7 +23,7 @@ class WelcomeEventCog(commands.Cog):
                 description=f"""Olá, {member.name.capitalize()}.
 Seja bem-vindo(a) à Codify Community!
 
-Você é nosso membro número {len(member.guild.members)}""",
+Você é nosso membro número {locale.format_string("%d", len(member.guild.members), grouping=True)}""",
                 color=0x9F6CFD,
             )
             embed.add_field(
@@ -34,7 +37,7 @@ Você é nosso membro número {len(member.guild.members)}""",
             )
             embed.set_image(url=config["guild"]["banner"])
             embed.set_thumbnail(
-                url=member.avatar.url if member.avatar else member.default_avatar.url
+                url=(member.avatar.url if member.avatar else member.default_avatar.url)
             )
 
             await channel.send(embed=embed)

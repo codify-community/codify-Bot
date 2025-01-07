@@ -7,6 +7,8 @@ from repositories.users_repository import UsersRepository
 from use_cases.base import UseCase
 from utils.factories import CustomButton, CustomView
 
+locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
+
 
 class CryptoPricesUseCase(UseCase):
     def __init__(self, send, author, ephemeral=False) -> None:
@@ -28,7 +30,6 @@ class CryptoPricesUseCase(UseCase):
             abbreviation = config["crypto"]["abbreviation"][crypto]
             name = config["crypto"]["names"][abbreviation]
 
-            locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
             value = locale.currency(data["price"], grouping=True)
 
             embed.add_field(
@@ -142,7 +143,6 @@ class CryptoBuyUseCase(UseCase):
         buttons[0].callback = buy_confirmation
         buttons[1].callback = buy_decline
 
-        locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
         value = locale.currency(price, grouping=True)
 
         return await self.send_message(
