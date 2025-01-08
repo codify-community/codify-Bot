@@ -25,7 +25,7 @@ class MessageEventCog(commands.Cog):
                 if message.author.id == message.author.id
             ]
 
-            if len(user_message_history) >= 1:
+            if len(user_message_history) > 1:
                 return
 
             await message.add_reaction("👋")
