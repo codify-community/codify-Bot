@@ -16,38 +16,40 @@ class WelcomeEventCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member: Member):
-        if env.environment == "prod":
-            channel = self.client.get_channel(WELCOME_CHANNEL_ID)
+        if env.environment != "prod":
+            return
 
-            embed = Embed(
-                description=f"""Olá, {member.name.capitalize()}.
+        channel = self.client.get_channel(WELCOME_CHANNEL_ID)
+
+        embed = Embed(
+            description=f"""Olá, {member.name.capitalize()}.
 Seja bem-vindo(a) à Codify Community!
 
 Você é nosso membro número {locale.format_string("%d", len(member.guild.members), grouping=True)}""",
-                color=0x9F6CFD,
-            )
-            embed.add_field(
-                name="Seguinte,",
-                value="Você ainda não pode ver o resto do servidor, pois precisa configurar seu perfil em Canais & Cargos localizado no canto superior esquerdo.",
-                inline=False,
-            )
-            embed.set_author(
-                name=member.guild.name,
-                icon_url=member.guild.icon.url,
-            )
-            embed.set_image(url=config["guild"]["banner"])
-            embed.set_thumbnail(
-                url=(member.avatar.url if member.avatar else member.default_avatar.url)
-            )
+            color=0x9F6CFD,
+        )
+        embed.add_field(
+            name="Seguinte,",
+            value="Você ainda não pode ver o resto do servidor, pois precisa configurar seu perfil em Canais & Cargos localizado no canto superior esquerdo.",
+            inline=False,
+        )
+        embed.set_author(
+            name=member.guild.name,
+            icon_url=member.guild.icon.url,
+        )
+        embed.set_image(url=config["guild"]["banner"])
+        embed.set_thumbnail(
+            url=(member.avatar.url if member.avatar else member.default_avatar.url)
+        )
 
-            await channel.send(embed=embed)
+        await channel.send(embed=embed)
 
-            try:
-                await member.send(embed=embed)
-            except Exception as e:
-                print(
-                    f"❌ EVENTS_WELCOME_ERROR: ao enviar mensagem de boas-vindas (DM) para {member.name}: {e}"
-                )
+        try:
+            await member.send(embed=embed)
+        except Exception as e:
+            print(
+                f"❌ EVENTS_WELCOME_ERROR: ao enviar mensagem de boas-vindas (DM) para {member.name}: {e}"
+            )
 
 
 async def setup(client):
