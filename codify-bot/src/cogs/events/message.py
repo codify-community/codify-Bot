@@ -19,16 +19,18 @@ class MessageEventCog(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message: Message):
         if message.channel.id == PRESENTATION_CHANNEL_ID:
-            user_message_history = [
-                message
-                async for message in message.channel.history(limit=10)
-                if message.author.id == message.author.id
-            ]
+            pass
 
-            if len(user_message_history) > 1:
-                return
+            # user_message_history = [
+            #     message
+            #     async for message in message.channel.history(limit=10)
+            #     if message.author.id == message.author.id
+            # ]
 
-            await message.add_reaction("👋")
+            # if len(user_message_history) > 1:
+            #     return
+
+            # await message.add_reaction("👋")
 
         elif message.author.id == FIBO_BOT_ID and message.guild.id == GUILD_ID:
             if message.content.startswith(

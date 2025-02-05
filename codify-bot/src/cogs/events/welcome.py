@@ -1,13 +1,9 @@
-import locale
-
 from discord import Embed, Member, Client
 from discord.ext import commands
 
 from env import env, config
 
 WELCOME_CHANNEL_ID = config["guild"]["channels"]["welcome"]
-
-locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
 
 
 class WelcomeEventCog(commands.Cog):
@@ -25,7 +21,7 @@ class WelcomeEventCog(commands.Cog):
             description=f"""Olá, {member.name.capitalize()}.
 Seja bem-vindo(a) à Codify Community!
 
-Você é nosso membro número {locale.format_string("%d", len(member.guild.members), grouping=True)}""",
+Você é nosso membro número {len(member.guild.members)}""",
             color=0x9F6CFD,
         )
         embed.add_field(
